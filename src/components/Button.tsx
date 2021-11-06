@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 
 import {styles} from '../styles/globalStyle';
 
@@ -11,7 +11,7 @@ interface IButton {
 export default function Button({ buttonFunction, buttonText }: IButton) {
     return (
         <TouchableOpacity style={styles.button} onPress={buttonFunction}>
-            <Text style={styles.buttonText}>{buttonText}</Text>
+            {<Text style={styles.buttonText}>{buttonText}</Text>}
         </TouchableOpacity>
     )
 }

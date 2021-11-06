@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
     button: {
         alignItems: "center",
         backgroundColor: "#f2f2f2",
-        borderRadius: 10,
+        borderRadius: 25,
         justifyContent: 'center',
         margin: 5,
         paddingVertical: 20,
@@ -37,5 +37,12 @@ export const styles = StyleSheet.create({
         backgroundColor: '#7febd0',
         alignItems: 'center',
         justifyContent: 'center',
+      },
+
+      longRest:{
+        flex: 1,
+        backgroundColor: '#3694ff',
+        alignItems: 'center',
+        justifyContent: 'center',        
       }
 });
