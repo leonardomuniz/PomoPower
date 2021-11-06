@@ -1,12 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Text, View } from 'react-native';
-import { MaterialIcons, AntDesign, FontAwesome5 } from '@expo/vector-icons';
-import { Audio } from 'expo-av';
 
 import Button from '../../components/Button';
-import { usePomodoro } from '../../context/Pomodoro';
+import { PomodoroContext } from '../../context/Pomodoro';
 import { styles } from '../../styles/globalStyle';
+import { playSound, displayTime } from '../../helpers/redux';
 
 
 export default function Pomodoro() {
@@ -14,20 +13,8 @@ export default function Pomodoro() {
     const [cycle, setCycle] = useState<number>(0);
     const [working, setWorking] = useState<boolean>(true);
     const [isPaused, setIsPaused] = useState<boolean>(false);
-    const [sound, setSound] = useState<any>();
 
-
-    const { focusTimer, restTimer } = usePomodoro();
-
-    let interval: number | any;
-
-    async function playSound() {
-        const { sound } = await Audio.Sound.createAsync(
-            working ? require('./boxing-bell.mp3') : require('./alarm-clock.mp3')
-        );
-        setSound(sound);
-        await sound.playAsync();
-    }
+    const { focusTimer, restTimer } = useContext(PomodoroContext);
 
 
     function startFocus() {
@@ -35,7 +22,7 @@ export default function Pomodoro() {
         setCycle(cycle + 1);
         setIsPaused(true);
 
-        interval = setInterval(() => {
+        const interval = setInterval(() => {
             setTimer(displayTime(counter));
             counter--;
 
@@ -54,7 +41,7 @@ export default function Pomodoro() {
         cycle === 2 ? counter = 40 : counter = restTimer;
         setIsPaused(true);
 
-        interval = setInterval(() => {
+        const interval = setInterval(() => {
             setTimer(displayTime(counter));
             counter--;
 
@@ -62,44 +49,34 @@ export default function Pomodoro() {
                 clearInterval(interval);
                 setWorking(true);
                 setIsPaused(false);
-                playSound()
+                playSound();
             };
         }, 1000);
     };
-
-    function displayTime(seconds: number): string {
-        const minute = Math.floor(seconds / 60);
-        const second = Math.floor(seconds % 60);
-
-        return `${minute < 10 ? '0' : ''}${minute}:${second < 10 ? '0' : ''}${second}`;
-    };
-
-
 
     return (
         <>
             {working ? (
                 <View style={styles.working}>
-                    <MaterialIcons name="work-outline" size={80} color="white" />
                     <Text style={styles.cycle}>{cycle}° Round</Text>
                     <Text style={styles.timer}>{timer === '' ? '00:00' : timer}</Text>
                     {isPaused ? (
-                        <Button buttonText={(<FontAwesome5 name="pause" size={30} color="red" />)} />
+                        <Button iconName="pause" iconSize={30} iconColor="red" />
                     ) : (
-                        <Button buttonText={(<FontAwesome5 name="play" size={30} color="red" />)} buttonFunction={() => startFocus()} />
+                        <Button iconName="play" iconSize={30} iconColor="red" buttonFunction={() => startFocus()} />
                     )}
 
                 </View>
             ) : (
                 <View style={cycle === 2 ? styles.longRest : styles.relax}>
-                    <AntDesign name="rest" size={80} color="white" />
+                    
                     <Text></Text>
                     <Text style={styles.cycle}>{cycle === 2 ? 'Descanço longo' : `${cycle}° Round`}</Text>
                     <Text style={styles.timer}>{timer === '' ? '00:00' : timer}</Text>
                     {isPaused ? (
-                        <Button buttonText={(<FontAwesome5 name="pause" size={30} color={cycle === 2 ? 'blue' : 'green'} />)} />
+                        <Button iconName="pause" iconSize={30} iconColor={cycle === 2 ? 'blue' : 'green'}/>
                     ) : (
-                        <Button buttonText={(<FontAwesome5 name="play" size={30} color="green" />)} buttonFunction={() => startRest()} />
+                        <Button iconName="play" iconSize={30} iconColor="green" buttonFunction={() => startRest()} />
                     )}
                 </View>
             )}

@@ -1,27 +1,33 @@
 import React, { createContext, useState, useContext } from 'react';
 
 type PomodoroContextProviderProps = {
-	children: React.ReactNode;
+    children: React.ReactNode;
 };
-const focusTimer:number = 10;
-const restTimer:number = 10;
 
-const PomodoroContext = createContext({focusTimer, restTimer});
+const minutes: number = 60;
+const PomodoroContext = createContext<any>(null);
 
-export function PomodoroProvider({children}:PomodoroContextProviderProps){
+function PomodoroProvider({ children }: PomodoroContextProviderProps) {
+    const [focusTimer, setFocusTimer] = useState<number>(minutes * 25);
+    const [restTimer, setRestTimer] = useState<number>(minutes * 5);
+    const [longRest, setLongRestTimer] = useState<number>(minutes * 20);
+    const [restCycle, setRestCycle] = useState<number>(4);
 
     return (
-        <PomodoroContext.Provider value ={{focusTimer, restTimer}}>
+        <PomodoroContext.Provider value={{
+            focusTimer,
+            restTimer,
+            longRest,
+            restCycle,
+            setLongRestTimer,
+            setFocusTimer,
+            setRestTimer,
+            setRestCycle
+        }}>
             {children}
         </PomodoroContext.Provider>
     );
 };
 
-export function usePomodoro(){
-    const {focusTimer, restTimer} = useContext(PomodoroContext);
 
-    if(!{focusTimer, restTimer}) throw new Error('usePomodoro must be used inside a PomodoroProvider');
-
-    return {focusTimer, restTimer};
-}
-
+export { PomodoroProvider, PomodoroContext } 

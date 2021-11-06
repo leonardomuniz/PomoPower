@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import Pomodoro from './src/pages/pomodoro/index';
 import { PomodoroProvider } from './src/context/Pomodoro';
+import Routes from './src/routes/Routes';
 
 export default function App() {
 
   return (
     <PomodoroProvider>
-      <Pomodoro />
+      <Routes />
     </PomodoroProvider>
   );
 }
