@@ -3,7 +3,7 @@ export const header:object = {
 };
 
 export const headerScreen:object = {
-    headerStyle: { backgroundColor: "#424242" },
+    headerStyle: { backgroundColor: "#171717" },
     headerShadowVisible: false,
     title: '',
 }

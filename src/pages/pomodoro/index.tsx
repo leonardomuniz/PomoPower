@@ -11,8 +11,8 @@ import { playSound, displayTime } from '../../helpers/redux';
 export default function Pomodoro() {
     const [timer, setTimer] = useState<string>('');
     const [cycle, setCycle] = useState<number>(0);
-    const [working, setWorking] = useState<boolean>(true);
     const [isPaused, setIsPaused] = useState<boolean>(false);
+    const [text, setText] = useState<string>('começar');
 
     const { focusTimer, restTimer } = useContext(PomodoroContext);
 
@@ -28,7 +28,6 @@ export default function Pomodoro() {
 
             if (counter < 0) {
                 clearInterval(interval);
-                setWorking(false);
                 setIsPaused(false);
                 playSound();
             }
@@ -47,7 +46,6 @@ export default function Pomodoro() {
 
             if (counter < 0) {
                 clearInterval(interval);
-                setWorking(true);
                 setIsPaused(false);
                 playSound();
             };
@@ -56,31 +54,16 @@ export default function Pomodoro() {
 
     return (
         <>
-            {working ? (
-                <View style={styles.working}>
-                    <Text style={styles.cycle}>{cycle}° Round</Text>
-                    <Text style={styles.timer}>{timer === '' ? '00:00' : timer}</Text>
-                    {isPaused ? (
-                        <Button iconName="pause" iconSize={30} iconColor="red" />
-                    ) : (
-                        <Button iconName="play" iconSize={30} iconColor="red" buttonFunction={() => startFocus()} />
-                    )}
+            <View style={styles.pomodoro}>
+                <Text style={styles.cycle}>{cycle}° Round</Text>
+                <Text style={styles.timer}>{timer === '' ? '00:00' : timer}</Text>
+                {isPaused ? (
+                    <Button buttonText="foco !"/>
+                ) : (
+                    <Button buttonText="começar" buttonFunction={() => startFocus()} />
+                )}
 
-                </View>
-            ) : (
-                <View style={cycle === 2 ? styles.longRest : styles.relax}>
-                    
-                    <Text></Text>
-                    <Text style={styles.cycle}>{cycle === 2 ? 'Descanço longo' : `${cycle}° Round`}</Text>
-                    <Text style={styles.timer}>{timer === '' ? '00:00' : timer}</Text>
-                    {isPaused ? (
-                        <Button iconName="pause" iconSize={30} iconColor={cycle === 2 ? 'blue' : 'green'}/>
-                    ) : (
-                        <Button iconName="play" iconSize={30} iconColor="green" buttonFunction={() => startRest()} />
-                    )}
-                </View>
-            )}
-
+            </View>
 
             <StatusBar style="auto" />
         </>
