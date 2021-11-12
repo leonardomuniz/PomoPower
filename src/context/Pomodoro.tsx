@@ -30,4 +30,4 @@ function PomodoroProvider({ children }: PomodoroContextProviderProps) {
 };
 
 
-export { PomodoroProvider, PomodoroContext } 
+export { PomodoroProvider, PomodoroContext };

@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
 	button: {
 		alignItems: 'center',
-		backgroundColor: '#fad8b6',
 		borderRadius: 25,
 		justifyContent: 'center',
 		margin: 5,
@@ -15,24 +14,20 @@ export const styles = StyleSheet.create({
 		fontSize: 30,
 		textTransform: 'uppercase',
 		fontWeight: 'bold',
-		color: '#e07b19'
 	},
 
 	cycle: {
-		color: '#fff',
 		fontSize: 55,
 		fontWeight: 'bold'
 	},
 
 	timer: {
-		color: '#fff',
 		fontSize: 125,
 		fontWeight: 'bold'
 	},
 
 	pomodoro: {
 		flex: 1,
-		backgroundColor: '#171717',
 		alignItems: 'center',
 		justifyContent: 'center'
 	},
@@ -41,7 +36,6 @@ export const styles = StyleSheet.create({
 	settings: {
 		margin: 0,
 		padding: 0,
-		backgroundColor: '#171717',
 		flex: 1
 	},
 

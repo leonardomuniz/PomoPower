@@ -29,12 +29,6 @@ export default function TabScreen(): any {
             tabBarInactiveTintColor: "#fad8b6",
             tabBarShowLabel: false,
             tabBarHideOnKeyboard: true,
-            tabBarStyle: {
-                display: "flex",
-                backgroundColor: "#171717",
-                borderColor: "#171717",
-                borderTopColor: "#171717"
-            }
         })} >
             <Tab.Screen name="home" component={Pomodoro} options={header} />
             <Tab.Screen name="settings" component={Settings} options={headerScreen} />
