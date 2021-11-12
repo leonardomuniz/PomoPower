@@ -63,6 +63,11 @@ export const styles = StyleSheet.create({
 		marginTop: '5%',
 		marginLeft: '5%'
 	},
+	showCase: {
+        display: "flex",
+        flexDirection: 'row',
+        flexWrap: "wrap"
+    },
 
 	input: {
 		fontSize: 20,

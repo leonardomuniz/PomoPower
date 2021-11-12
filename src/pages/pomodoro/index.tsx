@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Text, View } from 'react-native';
+import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 import Button from '../../components/Button';
 import { PomodoroContext } from '../../context/Pomodoro';
@@ -9,58 +10,53 @@ import { playSound, displayTime } from '../../helpers/redux';
 
 
 export default function Pomodoro() {
-    const [timer, setTimer] = useState<string>('');
-    const [cycle, setCycle] = useState<number>(0);
-    const [isPaused, setIsPaused] = useState<boolean>(false);
-    const [text, setText] = useState<string>('começar');
+    const [timer, setTimer] = useState<number>(10);
+    const [display, setDisplay] = useState<string>('');
+    const [cycle, setCycle] = useState<number>(1);
+    const [working, setWorking] = useState<boolean>(false);
 
     const { focusTimer, restTimer } = useContext(PomodoroContext);
 
+    
+    useEffect(() => {
+        let interval: any = null;
+        
+        if(working){
+            let counter: number = timer;
+    
+            interval = setInterval(() => {
+                setTimer(previousTime => previousTime - 1);
+                counter--;
+    
+                if (counter <= 0) {
+                    setWorking(false);
+                    setCycle(cycle + 1);
+                    playSound();
+                };
+            }, 1000);
+        } else {
+            clearInterval(interval);
+        };
 
-    function startFocus() {
-        let counter: number = focusTimer;
-        setCycle(cycle + 1);
-        setIsPaused(true);
+        return () => clearInterval(interval);
+    }, [working]);
 
-        const interval = setInterval(() => {
-            setTimer(displayTime(counter));
-            counter--;
+    useEffect(()=>setDisplay(displayTime(timer)), [timer]);
 
-            if (counter < 0) {
-                clearInterval(interval);
-                setIsPaused(false);
-                playSound();
-            }
-        }, 1000);
 
-    };
-
-    function startRest() {
-        let counter: number;
-        cycle === 2 ? counter = 40 : counter = restTimer;
-        setIsPaused(true);
-
-        const interval = setInterval(() => {
-            setTimer(displayTime(counter));
-            counter--;
-
-            if (counter < 0) {
-                clearInterval(interval);
-                setIsPaused(false);
-                playSound();
-            };
-        }, 1000);
-    };
 
     return (
         <>
             <View style={styles.pomodoro}>
-                <Text style={styles.cycle}>{cycle}° Round</Text>
-                <Text style={styles.timer}>{timer === '' ? '00:00' : timer}</Text>
-                {isPaused ? (
-                    <Button buttonText="foco !"/>
+                <Text style={styles.cycle}>{cycle % 2 == 0? 'Foco': 'Descanço'}</Text>
+                <Text style={styles.timer}>{display === '' ? '00:00': display}</Text>
+                {working ? (
+                    <View style={styles.showCase}>
+                        <Button buttonText={<FontAwesome5 name="pause" size={40} color="black" />} buttonFunction={() => setWorking(false)}  />
+                        <Button buttonText={<MaterialCommunityIcons name="restart" size={40} color="black" />} buttonFunction={() => setTimer(25)}  />
+                    </View>
                 ) : (
-                    <Button buttonText="começar" buttonFunction={() => startFocus()} />
+                    <Button buttonText={<FontAwesome5 name="play" size={40} color="black" />} buttonFunction={() => {setWorking(true); setTimer(timer === 0 ? 10: timer)}} />
                 )}
 
             </View>
