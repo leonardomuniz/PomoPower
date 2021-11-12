@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
 
-import { header, headerScreen } from '../helpers/Headers';
+import { header } from '../helpers/Headers';
 import Pomodoro from '../pages/pomodoro/index';
 import Settings from '../pages/settings/index';
 

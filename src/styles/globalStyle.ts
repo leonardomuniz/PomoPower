@@ -10,7 +10,6 @@ export const styles = StyleSheet.create({
 		paddingHorizontal: 25,
 	},
 
-
 	pomodoro: {
 		flex: 1,
 		alignItems: 'center',

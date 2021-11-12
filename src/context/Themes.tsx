@@ -34,7 +34,7 @@ const ThemeContext = createContext<any>(themes);
 function ThemeProvider({ children }: ThemeContextProviderProps) {
     const [isDarkMode, setIsDarkMode] = useState<any>(false);
     return (
-        <ThemeContext.Provider value={{themes, isDarkMode, setIsDarkMode}}>
+        <ThemeContext.Provider value={{ themes, isDarkMode, setIsDarkMode }}>
             {children}
         </ThemeContext.Provider>
     );
