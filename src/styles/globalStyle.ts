@@ -10,21 +10,6 @@ export const styles = StyleSheet.create({
 		paddingHorizontal: 25,
 	},
 
-	buttonText: {
-		fontSize: 30,
-		textTransform: 'uppercase',
-		fontWeight: 'bold',
-	},
-
-	cycle: {
-		fontSize: 55,
-		fontWeight: 'bold'
-	},
-
-	timer: {
-		fontSize: 125,
-		fontWeight: 'bold'
-	},
 
 	pomodoro: {
 		flex: 1,
@@ -32,25 +17,19 @@ export const styles = StyleSheet.create({
 		justifyContent: 'center'
 	},
 
-
 	settings: {
 		margin: 0,
+		marginTop: '20%',
 		padding: 0,
 		flex: 1
 	},
-
 	formBox: {
-		marginBottom: '5%',
+		marginBottom: 20,
 		padding: 0,
 		alignItems: 'center',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		flex: 1
-	},
-	textInfo: {
-		color: 'white',
-		fontSize: 20,
-		fontWeight: 'bold'
 	},
 	staticBody: {
 		width: '90%',
@@ -63,15 +42,9 @@ export const styles = StyleSheet.create({
         flexWrap: "wrap"
     },
 
-	input: {
-		fontSize: 20,
-		color: '#fff',
-		borderBottomColor: '#ff4f1f'
-	},
-
 	footer: {
 		flex: 1,
-		marginTop: '95%',
+		marginTop: '75%',
 		alignContent: 'flex-end'
 	}
 });

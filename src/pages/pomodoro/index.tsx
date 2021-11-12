@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useContext, useEffect } from 'react';
 import { Text, View } from 'react-native';
-import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useTheme } from '@react-navigation/native'; 
 
 import Button from '../../components/Button';
 import { PomodoroContext } from '../../context/Pomodoro';
@@ -10,12 +11,13 @@ import { playSound, displayTime } from '../../helpers/redux';
 
 
 export default function Pomodoro() {
-    const [timer, setTimer] = useState<number>(10);
-    const [display, setDisplay] = useState<string>('');
-    const [cycle, setCycle] = useState<number>(1);
-    const [working, setWorking] = useState<boolean>(false);
-
     const { focusTimer, restTimer } = useContext(PomodoroContext);
+    const { colors } = useTheme();
+
+    const [timer, setTimer] = useState<number>(focusTimer);
+    const [display, setDisplay] = useState<string>('');
+    const [cycle, setCycle] = useState<number>(0);
+    const [working, setWorking] = useState<boolean>(false);
 
     
     useEffect(() => {
@@ -48,15 +50,15 @@ export default function Pomodoro() {
     return (
         <>
             <View style={styles.pomodoro}>
-                <Text style={styles.cycle}>{cycle % 2 == 0? 'Foco': 'Descanço'}</Text>
-                <Text style={styles.timer}>{display === '' ? '00:00': display}</Text>
+                <Text style={{fontSize: 55, fontWeight: 'bold', color: colors.text}}>{cycle % 2 == 0? 'FOCO !': 'DESCANÇO'}</Text>
+                <Text style={{fontSize: 125, fontWeight: 'bold', color: colors.text}}>{display === '' ? '00:00': display}</Text>
                 {working ? (
                     <View style={styles.showCase}>
-                        <Button buttonText={<FontAwesome5 name="pause" size={40} color="black" />} buttonFunction={() => setWorking(false)}  />
-                        <Button buttonText={<MaterialCommunityIcons name="restart" size={40} color="black" />} buttonFunction={() => setTimer(25)}  />
+                        <Button buttonText={<FontAwesome5 name="pause" size={40} color={colors.primary} />} buttonFunction={() => setWorking(false)}  />
+                        <Button buttonText={<MaterialCommunityIcons name="restart" size={40} color={colors.primary} />} buttonFunction={() => setTimer(focusTimer)}  />
                     </View>
                 ) : (
-                    <Button buttonText={<FontAwesome5 name="play" size={40} color="black" />} buttonFunction={() => {setWorking(true); setTimer(timer === 0 ? 10: timer)}} />
+                    <Button buttonText={<FontAwesome5 name="play" size={40} color={colors.primary} />} buttonFunction={() => {setWorking(true); setTimer(timer === 0 ? focusTimer: timer)}} />
                 )}
 
             </View>

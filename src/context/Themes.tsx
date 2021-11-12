@@ -1,33 +1,44 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 
 type ThemeContextProviderProps = {
     children: React.ReactNode;
 };
 
 const themes = {
-    light:{
+    light: {
         dark: false,
         colors: {
-            primary: 'rgb(255, 45, 85)',
+            primary: '#e62200',
             background: '#f2f2f2',
-            card: '#fff',
+            card: '#f2f2f2',
             text: '#171717',
             border: '#f2f2f2',
-            notification: 'rgb(255, 69, 58)',
-          },
+
+        },
+    },
+    dark: {
+        dark: true,
+        colors: {
+            primary: '#e62200',
+            background: '#171717',
+            card: '#171717',
+            text: '#f2f2f2',
+            border: '#171717'
+        },
     }
 }
 
 
-const ThemeContext = createContext<object>(themes);
+const ThemeContext = createContext<any>(themes);
 
-function ThemeProvider({children}: ThemeContextProviderProps){
-    return(
-        <ThemeContext.Provider value={themes}>
+function ThemeProvider({ children }: ThemeContextProviderProps) {
+    const [isDarkMode, setIsDarkMode] = useState<any>(false);
+    return (
+        <ThemeContext.Provider value={{themes, isDarkMode, setIsDarkMode}}>
             {children}
         </ThemeContext.Provider>
     );
 };
 
 
-export {ThemeProvider, ThemeContext};
+export { ThemeProvider, ThemeContext };

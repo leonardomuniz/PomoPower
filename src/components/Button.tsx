@@ -15,7 +15,7 @@ interface IButton {
 export default function Button({ buttonFunction, buttonText, iconName, iconSize, iconColor }: IButton) {
     return (
         <TouchableOpacity style={styles.button} onPress={buttonFunction}>
-            {buttonText && <Text style={styles.buttonText}>{buttonText}</Text>}
+            {buttonText && <Text>{buttonText}</Text>}
             {iconName && <FontAwesome5 name={iconName} size={iconSize} color={iconColor} />}
         </TouchableOpacity>
     )

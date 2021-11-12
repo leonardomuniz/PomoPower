@@ -25,13 +25,12 @@ export default function TabScreen(): any {
 
                 return <Icon name={iconName} size={size} color={color} />;
             },
-            tabBarActiveTintColor: "#e07b19",
-            tabBarInactiveTintColor: "#fad8b6",
+
             tabBarShowLabel: false,
             tabBarHideOnKeyboard: true,
         })} >
             <Tab.Screen name="home" component={Pomodoro} options={header} />
-            <Tab.Screen name="settings" component={Settings} options={headerScreen} />
+            <Tab.Screen name="settings" component={Settings} options={header} />
         </Tab.Navigator>
     )
 }
