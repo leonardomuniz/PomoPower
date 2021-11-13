@@ -20,8 +20,20 @@ export const styles = StyleSheet.create({
 		margin: 0,
 		marginTop: '20%',
 		padding: 0,
-		flex: 1
 	},
+
+	toDoList: {
+		flex: 1,
+		flexDirection: 'column',
+		margin: 0, 
+		padding: 0
+	},
+
+	toDos: {
+		marginTop: '15%',
+
+	},
+
 	formBox: {
 		marginBottom: 20,
 		padding: 0,
@@ -30,20 +42,23 @@ export const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 		flex: 1
 	},
+
 	staticBody: {
 		width: '90%',
 		marginTop: '5%',
 		marginLeft: '5%'
 	},
+
 	showCase: {
         display: "flex",
         flexDirection: 'row',
-        flexWrap: "wrap"
+        flexWrap: "wrap",
+		marginVertical: 15,
     },
 
 	footer: {
-		flex: 1,
 		marginTop: '75%',
-		alignContent: 'flex-end'
+		flexDirection: 'column',
+		justifyContent: 'flex-end',
 	}
 });

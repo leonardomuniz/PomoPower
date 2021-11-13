@@ -12,6 +12,16 @@ import { ThemeContext } from '../../context/Themes';
 export default function Settings() {
     const { colors } = useTheme();
     const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
+    const {
+        focusTimer,
+        restTimer,
+        longRest,
+        restCycle,
+        setLongRestTimer,
+        setFocusTimer,
+        setRestTimer,
+        setRestCycle
+    } = useContext(PomodoroContext);
 
     const [focus, setFocus] = useState<any>(0);
     const [rest, setRest] = useState<any>(0);
@@ -31,18 +41,6 @@ export default function Settings() {
         };
     };
 
-
-
-    const {
-        focusTimer,
-        restTimer,
-        longRest,
-        restCycle,
-        setLongRestTimer,
-        setFocusTimer,
-        setRestTimer,
-        setRestCycle
-    } = useContext(PomodoroContext);
 
     async function changeSettings() {
         setFocusTimer(focus === 0 ? focusTimer : focus * 60);
@@ -108,8 +106,8 @@ export default function Settings() {
                 <View style={styles.formBox}>
                     <Text style={{ fontSize: 25, fontWeight: 'bold', color: colors.text }}>Modo escuro:</Text>
                     <Switch
-                        trackColor={{ false: '#767577', true: colors.text }}
-                        thumbColor={isEnabled ? colors.primary : '#f4f3f4'}
+                        trackColor={{ false: '#767577', true: colors.primary }}
+                        thumbColor={'#f4f3f4'}
                         onValueChange={toggleSwitch}
                         value={isEnabled}
                     />
