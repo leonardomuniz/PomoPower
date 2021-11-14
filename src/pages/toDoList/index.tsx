@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
@@ -18,21 +18,34 @@ export default function ToDoList() {
     const [list, setList] = useState<ITodoItem[]>([]);
     const [text, setText] = useState<string>('');
 
-    function handleAdd() {
-        if(text !== ''){
-            const addTask = [...list, { id: Date.now(), value: text }];
+    async function handleAdd() {
+        const addTask = [...list, { id: Date.now(), value: text }];
 
+        if (text !== '') {
             setList(addTask);
         };
 
         setText('');
+
+        await AsyncStorage.setItem('@toDoList', JSON.stringify(addTask));
     };
 
-    function handleDelete(id: ITodoItem['id']) {
+    async function handleDelete(id: ITodoItem['id']) {
         const removeTask = list.filter(item => item.id !== id);
 
         setList(removeTask);
-    }
+
+        await AsyncStorage.setItem('@toDoList', JSON.stringify(removeTask));
+    };
+
+
+    useEffect(() => {
+        (async () => {
+            const toDos: any = await AsyncStorage.getItem('@toDoList');
+
+            setList(JSON.parse(toDos));
+        })();
+    }, []);
 
     return (
         <View style={styles.toDoList}>
@@ -41,7 +54,7 @@ export default function ToDoList() {
                     <TouchableOpacity key={item.id} onPress={() => handleDelete(item.id)} style={{
                         marginLeft: '2.5%',
                         marginTop: '2%',
-                        padding: 10,
+                        padding: 15,
                         width: '95%',
                         backgroundColor: colors.notification,
                         borderRadius: 5
