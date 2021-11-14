@@ -13,6 +13,7 @@ function PomodoroProvider({ children }: PomodoroContextProviderProps) {
     const [longRest, setLongRestTimer] = useState<number>(minutes * 20);
     const [restCycle, setRestCycle] = useState<number>(4);
 
+
     return (
         <PomodoroContext.Provider value={{
             focusTimer,

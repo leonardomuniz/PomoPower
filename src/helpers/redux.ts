@@ -1,10 +1,10 @@
 import { Audio } from 'expo-av';
 
-let song: any;
+
 
 export async function playSound() {
-	const { sound } = await Audio.Sound.createAsync(require('../assets/boxing-bell.mp3'));
-	song = sound;
+	const { sound } = await Audio.Sound.createAsync(require(`../assets/boxing-bell.mp3`));
+	
 
 	await sound.playAsync();
 
