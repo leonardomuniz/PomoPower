@@ -8,7 +8,7 @@ const minutes: number = 60;
 const PomodoroContext = createContext<any>(null);
 
 function PomodoroProvider({ children }: PomodoroContextProviderProps) {
-    const [focusTimer, setFocusTimer] = useState<number>(minutes *25);
+    const [focusTimer, setFocusTimer] = useState<number>(minutes * 25);
     const [restTimer, setRestTimer] = useState<number>(minutes * 5);
     const [longRest, setLongRestTimer] = useState<number>(minutes * 20);
     const [restCycle, setRestCycle] = useState<number>(4);

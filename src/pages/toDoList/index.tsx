@@ -15,7 +15,7 @@ interface ITodoItem {
 export default function ToDoList() {
     const { colors } = useTheme();
 
-    const [list, setList] = useState<ITodoItem[]>([]);
+    const [list, setList] = useState<ITodoItem[]>([{ id: Date.now(), value: 'primeira tarefa' }]);
     const [text, setText] = useState<string>('');
 
     async function handleAdd() {
@@ -43,7 +43,8 @@ export default function ToDoList() {
         (async () => {
             const toDos: any = await AsyncStorage.getItem('@toDoList');
 
-            setList(JSON.parse(toDos));
+            toDos === null ? null: setList(JSON.parse(toDos));
+            
         })();
     }, []);
 
@@ -59,7 +60,6 @@ export default function ToDoList() {
                         backgroundColor: colors.notification,
                         borderRadius: 5
                     }}>
-
                         <Text style={{ fontSize: 25, fontWeight: 'bold', color: colors.text }}>{item.value}</Text>
                     </TouchableOpacity>
                 ))}
